@@ -21,7 +21,7 @@ public class StoryService {
         return storyRepository.findById(id).orElse(null);
     }
 
-    // ✅ Lấy danh sách truyện theo category_id
+    // Lấy danh sách truyện theo category_id
     public List<Story> getStoriesByCategory(Long categoryId) {
         return storyRepository.findByCategoryId(categoryId);
     }

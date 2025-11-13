@@ -16,20 +16,20 @@ public class StoryController {
     @Autowired
     private StoryService storyService;
 
-    // ✅ Lấy tất cả truyện
+    // Lấy tất cả truyện
     @GetMapping
     public List<Story> getAllStories() {
         return storyService.getAllStories();
     }
 
-    // ✅ Lấy truyện theo ID
+    // Lấy truyện theo ID
     @GetMapping("/{id}")
     public ResponseEntity<Story> getStoryById(@PathVariable Long id) {
         Story story = storyService.getStoryById(id);
         return story != null ? ResponseEntity.ok(story) : ResponseEntity.notFound().build();
     }
 
-    // ✅ Thêm API lấy truyện theo thể loại
+    // Thêm API lấy truyện theo thể loại
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<Story>> getStoriesByCategory(@PathVariable Long categoryId) {
         List<Story> stories = storyService.getStoriesByCategory(categoryId);
