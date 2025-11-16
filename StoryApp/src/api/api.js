@@ -1,13 +1,31 @@
-import axios from "axios";
+export const API_BASE_URL = "http://10.0.2.2:8080/api";
 
-const API_URL = "http://10.0.2.2:3000/api"; // Android emulator
-
-export const getStories = async () => {
-  const res = await axios.get(`${API_URL}/stories`);
-  return res.data;
+export const fetchStories = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/stories`);
+    return await response.json();
+  } catch (error) {
+    console.error("Lỗi khi fetch stories:", error);
+    return [];
+  }
 };
 
-export const getStoryById = async (id) => {
-  const res = await axios.get(`${API_URL}/stories/${id}`);
-  return res.data;
+export const fetchCategories = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/categories`);
+    return await response.json();
+  } catch (error) {
+    console.error("Lỗi khi fetch categories:", error);
+    return [];
+  }
+};
+
+export const fetchChapters = async (storyId) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/chapters/story/${storyId}`);
+    return await response.json();
+  } catch (error) {
+    console.error("Lỗi khi fetch chapters:", error);
+    return [];
+  }
 };
