@@ -15,6 +15,7 @@ public class Story {
 
     private String title;
     private String author;
+    @Column(columnDefinition = "LONGTEXT")
     private String description;
     private String cover_image;
 
