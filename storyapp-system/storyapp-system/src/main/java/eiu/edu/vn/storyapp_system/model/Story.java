@@ -17,6 +17,7 @@ public class Story {
     private String author;
     @Column(columnDefinition = "LONGTEXT")
     private String description;
+    @Column(columnDefinition = "TEXT")
     private String cover_image;
 
     @ManyToOne

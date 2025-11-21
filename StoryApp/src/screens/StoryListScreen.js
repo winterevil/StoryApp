@@ -79,7 +79,7 @@ export default function StoryListScreen({ route, navigation }) {
           uri:
             item.cover_image && item.cover_image.trim() !== ""
               ? item.cover_image
-              : "https://i.imgur.com/V7ZB9bC.png",
+              : "https://t3.ftcdn.net/jpg/05/79/68/24/360_F_579682479_j4jRfx0nl3C8vMrTYVapFnGP8EgNHgfk.jpg",
         }}
         style={styles.cover}
       />
