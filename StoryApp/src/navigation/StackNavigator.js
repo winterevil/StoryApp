@@ -10,6 +10,8 @@ import CategoryScreen from "../screens/CategoryScreen";
 import AboutScreen from "../screens/AboutScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import ChapterDetailScreen from "../screens/ChapterDetailScreen";
+import LoginScreen from "../screens/LoginScreen";
+import SignUpScreen from "../screens/SignUpScreen";
 
 const Stack = createStackNavigator();
 
@@ -17,6 +19,8 @@ export default function StackNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Splash" screenOptions={{ headerShown: true }}>
+        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false, title: "Home Page" }} />
         <Stack.Screen name="StoryList" component={StoryListScreen} options={{ title: "Story List" }} />

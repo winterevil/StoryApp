@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03320a1f-3977-442e-b905-390442dec70b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../StoryApp/src/screens/StoryListScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/../StoryApp/src/screens/StoryListScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/model/Story.java" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/model/Story.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storyapp-system/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/Chapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/Chapter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/Story.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/Story.class" afterDir="false" />
     </list>
@@ -97,6 +97,7 @@
       <workItem from="1763695172369" duration="2503000" />
       <workItem from="1763708609568" duration="2737000" />
       <workItem from="1763719535079" duration="1393000" />
+      <workItem from="1763863367835" duration="877000" />
     </task>
     <servers />
   </component>
