@@ -1,30 +1,7 @@
-// import React from "react";
-// import { View, Text, Button, StyleSheet, ScrollView } from "react-native";
-
-// export default function HomeScreen({ navigation }) {
-//   return (
-//     <ScrollView contentContainerStyle={styles.container}>
-//       <Text style={styles.title}>Chào mừng đến StoryApp!</Text>
-
-//       <Button title="📚 Danh sách truyện" onPress={() => navigation.navigate("StoryList")} />
-//       <Button title="🔍 Tìm kiếm" onPress={() => navigation.navigate("Search")} />
-//       <Button title="📂 Thể loại" onPress={() => navigation.navigate("Category")} />
-//       <Button title="🔖 Truyện đã lưu" onPress={() => navigation.navigate("Bookmark")} />
-//       <Button title="⚙️ Cài đặt" onPress={() => navigation.navigate("Settings")} />
-//       <Button title="👤 Hồ sơ" onPress={() => navigation.navigate("Profile")} />
-//       <Button title="ℹ️ Giới thiệu" onPress={() => navigation.navigate("About")} />
-//     </ScrollView>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: { flexGrow: 1, justifyContent: "center", alignItems: "center", padding: 20 },
-//   title: { fontSize: 22, fontWeight: "bold", marginBottom: 20 },
-// });
-
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function HomeScreen({ navigation }) {
   return (
@@ -35,41 +12,34 @@ export default function HomeScreen({ navigation }) {
       style={{ flex: 1 }}
     >
       <ScrollView contentContainerStyle={styles.container}>
-
+        {/* LOGO */}
+        <Image source={require("../assets/img/illustration.png")} style={styles.logo} />
         {/* HEADER */}
-        <Text style={styles.title}>Welcome to Tunova 📚</Text>
+        <Text style={styles.title}>Welcome to Tunova</Text>
         <Text style={styles.subTitle}>
-          Your reading story friend ✨
+          Your reading story friend
         </Text>
 
         {/* BUTTON LIST */}
         <View style={styles.menuWrapper}>
           <MenuButton
-            label="📚 Danh sách truyện"
+            label="Story List"
+            icon="book-open-page-variant"
             onPress={() => navigation.navigate("StoryList")}
           />
           <MenuButton
-            label="🔍 Tìm kiếm"
-            onPress={() => navigation.navigate("Search")}
-          />
-          <MenuButton
-            label="📂 Thể loại"
+            label="Category"
+            icon="grid"
             onPress={() => navigation.navigate("Category")}
           />
           <MenuButton
-            label="🔖 Truyện đã lưu"
-            onPress={() => navigation.navigate("Bookmark")}
-          />
-          <MenuButton
-            label="⚙️ Cài đặt"
-            onPress={() => navigation.navigate("Settings")}
-          />
-          <MenuButton
-            label="👤 Hồ sơ"
+            label="Profile"
+            icon="account-circle"
             onPress={() => navigation.navigate("Profile")}
           />
           <MenuButton
-            label="ℹ️ Giới thiệu"
+            label="About Us"
+            icon="information-outline"
             onPress={() => navigation.navigate("About")}
           />
         </View>
@@ -80,22 +50,32 @@ export default function HomeScreen({ navigation }) {
 }
 
 /* CUSTOM BUTTON COMPONENT */
-function MenuButton({ label, onPress }) {
+function MenuButton({ label, icon, onPress }) {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.buttonText}>{label}</Text>
+      <View style={styles.row}>
+        <Icon name={icon} size={26} color="#184530" style={{ marginRight: 15 }} />
+        <Text style={styles.buttonText}>{label}</Text>
+      </View>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flexGrow: 1,
     padding: 22,
     paddingTop: 70,
     paddingBottom: 120,
     alignItems: "center",
+    justifyContent: "center",
   },
-
+  logo: {
+    width: 120,
+    height: 120,
+    borderRadius: 18,
+    marginBottom: 20,
+  },
   title: {
     fontSize: 28,
     fontWeight: "700",
@@ -119,15 +99,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 22,
     borderRadius: 18,
     marginBottom: 14,
-
-    // shadow
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 3,
-    elevation: 3,
   },
-
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   buttonText: {
     fontSize: 17,
     color: "#184530",

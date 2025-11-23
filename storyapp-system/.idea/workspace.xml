@@ -5,32 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03320a1f-3977-442e-b905-390442dec70b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../StoryApp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../StoryApp/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../StoryApp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../StoryApp/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../StoryApp/src/screens/HomeScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/../StoryApp/src/screens/HomeScreen.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storyapp-system/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/StoryappSystemApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/StoryappSystemApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/config/CorsConfig$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/config/CorsConfig$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/config/CorsConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/config/CorsConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/controller/CategoryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/controller/CategoryController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/controller/ChapterController.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/controller/ChapterController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/controller/StoryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/controller/StoryController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/controller/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/Category.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/Chapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/Chapter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/Story.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/Story.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/repository/CategoryRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/repository/CategoryRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/repository/ChapterRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/repository/ChapterRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/repository/StoryRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/repository/StoryRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/repository/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/service/CategoryService.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/service/CategoryService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/service/ChapterService.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/service/ChapterService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/service/StoryService.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/service/StoryService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/service/UserService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +28,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/winterevil/StoryApp.git&quot;,
-    &quot;accountId&quot;: &quot;b2452764-91dd-4beb-bee4-8704add861cb&quot;
+    &quot;accountId&quot;: &quot;53ae742b-babb-4f27-bd4c-43553458d77c&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -60,31 +39,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.StoryappSystemApplication.executor": "Run",
-    "git-widget-placeholder": "diep-test",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/CSE441/StoryApp/storyapp-system",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.StoryappSystemApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;long&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/CSE441/StoryApp/storyapp-system&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "derby",
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;,
+      &quot;derby&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="StoryappSystemApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
@@ -98,8 +78,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.26775.15" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.26775.15" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26927.53" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.26927.53" />
       </set>
     </attachedChunks>
   </component>
@@ -113,6 +93,11 @@
       <updated>1763022436499</updated>
       <workItem from="1763022437964" duration="1625000" />
       <workItem from="1763615552585" duration="536000" />
+      <workItem from="1763617254040" duration="6791000" />
+      <workItem from="1763695172369" duration="2503000" />
+      <workItem from="1763708609568" duration="2737000" />
+      <workItem from="1763719535079" duration="1393000" />
+      <workItem from="1763863367835" duration="877000" />
     </task>
     <servers />
   </component>
