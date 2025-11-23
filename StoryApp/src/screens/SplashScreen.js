@@ -1,162 +1,114 @@
-import React, { useEffect, useRef } from 'react';
-import { StyleSheet, Animated, Easing, Image, View } from 'react-native';
-import { Text, Surface } from 'react-native-paper';
-import LinearGradient from 'react-native-linear-gradient';
+import React, { useEffect } from "react";
+import { StyleSheet, Image, View, Text, TouchableOpacity } from "react-native";
+import LinearGradient from "react-native-linear-gradient";
 
 export default function SplashScreen({ navigation }) {
-  const rotate = useRef(new Animated.Value(0)).current;
-
+  // Auto chuyển
   useEffect(() => {
-    Animated.loop(
-      Animated.timing(rotate, {
-        toValue: 1,
-        duration: 1400,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }),
-    ).start();
-
-    const timer = setTimeout(() => navigation.replace('Home'), 1500);
+    const timer = setTimeout(() => navigation.replace("Login"), 5000);
     return () => clearTimeout(timer);
   }, []);
 
-  const spin = rotate.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', '360deg'],
-  });
-
   return (
     <LinearGradient
-      colors={['#A1FFCE', '#FAFFD1', '#8FD9C4']}
+      colors={["#A1FFCE", "#FAFFD1", "#8FD9C4"]}
       start={{ x: 0, y: 0 }}
       end={{ x: 0, y: 1 }}
       style={styles.container}
     >
-      {/* 🌟 HÌNH NẰM ĐÈ LÊN NỀN (ở giữa màn hình) */}
-      <Image
-        source={require('../assets/img/illustration.png')}
-        style={styles.middleImage}
-        resizeMode="contain"
-      />
-      <View style={styles.buttons}>
-        <View style={styles.loginButton}>
-          <Text style={styles.loginText}>Login</Text>
-        </View>
-        <Text>
-          You don't have an account ?{' '}
-          <Text style={styles.registerText}>Register</Text>
-        </Text>
-        <Text style={styles.welcomeText}>
-          Welcome to Tunova ! Your reading story friend
-        </Text>
+      {/* HEADER TEXT */}
+      <View style={styles.topTextBox}>
+        <Text style={styles.title}>Welcome To</Text>
+        <Text style={styles.subTitle}>Tunova Reading App</Text>
       </View>
 
-      {/* CARD TRẮNG
-      <Surface style={styles.card} elevation={6}>
-        <Image
-          style={styles.img}
-          source={require('../assets/img/bg.jpg')}
-          resizeMode="contain"
-        />
+      {/* MAIN ILLUSTRATION */}
+      <Image
+        source={require("../assets/img/illustration.png")}
+        style={styles.illustration}
+        resizeMode="contain"
+      />
 
-        <Text variant="headlineMedium" style={styles.appName}>
-          Turova
-        </Text> */}
+      {/* FOOTER AREA */}
+      <View style={styles.bottomArea}>
+        <Text style={styles.description}>
+          Your reading companion is here to inspire{"\n"}
+          and guide you through endless stories.
+        </Text>
 
-      {/* LOADING SPINNER */}
-      {/* <Animated.View
-          style={[styles.loader, { transform: [{ rotate: spin }] }]}
-        />
-      </Surface> */}
+        {/* LET'S START BUTTON */}
+        <TouchableOpacity
+          style={styles.startButton}
+          onPress={() => navigation.replace("Login")}
+        >
+          <Text style={styles.startText}>Let's Start →</Text>
+        </TouchableOpacity>
+      </View>
     </LinearGradient>
   );
 }
 
-const WHITE = '#fff';
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingHorizontal: 26,
+    alignItems: "center",
   },
 
-  /* 🌟 Hình nằm chính giữa màn hình */
-  middleImage: {
-    position: 'absolute',
-    top: '22%', // chỉnh để vừa mắt
-    width: 260,
-    height: 260,
-    opacity: 1, // bạn có thể giảm xuống 0.9 cho đẹp
+  topTextBox: {
+    marginTop: 75,
+    alignItems: "flex-start",
+    width: "100%",
   },
 
-  card: {
-    width: 260,
-    paddingVertical: 45,
-    paddingHorizontal: 25,
-    borderRadius: 24,
-    alignItems: 'center',
-    backgroundColor: WHITE,
-    marginTop: 180, // đẩy card xuống để tránh đè lên middle image
+  title: {
+    fontSize: 32,
+    fontWeight: "700",
+    color: "#184530",
   },
 
-  img: {
-    width: 140,
-    height: 140,
-    marginBottom: 20,
+  subTitle: {
+    fontSize: 18,
+    marginTop: 2,
+    fontWeight: "600",
+    color: "#184530cc",
   },
 
-  loader: {
-    width: 55,
-    height: 55,
-    borderRadius: 27.5,
-    borderWidth: 5,
-    borderColor: WHITE,
-    borderTopColor: 'transparent',
-    marginTop: 28,
+  illustration: {
+    width: "90%",
+    height: 280,
+    marginTop: 40,
   },
 
-  appName: {
-    fontFamily: 'cursive',
-    fontSize: 50,
-    fontStyle: 'italic',
-    fontWeight: 'bold',
-    color: '#2E473B',
-    marginBottom: 20,
+  bottomArea: {
+    alignItems: "center",
+    marginTop: 40,
   },
-  buttons: {
-    marginTop: 20,
-    width: '100%',
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
+
+  description: {
+    textAlign: "center",
+    fontSize: 15,
+    lineHeight: 22,
+    color: "#184530cc",
+    marginBottom: 30,
   },
-  loginButton: {
-    backgroundColor: '#fff',
+
+  startButton: {
+    backgroundColor: "#ffffff",
     paddingVertical: 12,
-    paddingHorizontal: 32,
+    paddingHorizontal: 40,
     borderRadius: 25,
-    marginBottom: 15,
-    marginTop: 100,
-    shadowColor: '#000',
+
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
-    elevation: 5,
+    shadowOpacity: 0.18,
+    shadowRadius: 4,
+    elevation: 4,
   },
-  loginText: {
-    color: '#184530ff',
-    fontWeight: 'bold',
-  },
-  registerText: {
-    color: '#184530ff',
-    fontWeight: 'bold',
-  },
-  welcomeContainer: {
-    position: 'absolute',
-    alignItems: 'center',
-  },
-  welcomeText: {
-    color: '#184530ff',
+
+  startText: {
+    fontSize: 16,
+    color: "#184530",
+    fontWeight: "700",
   },
 });

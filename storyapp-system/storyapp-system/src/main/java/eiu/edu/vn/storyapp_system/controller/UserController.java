@@ -2,6 +2,7 @@ package eiu.edu.vn.storyapp_system.controller;
 
 import eiu.edu.vn.storyapp_system.model.*;
 import eiu.edu.vn.storyapp_system.service.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -15,6 +16,9 @@ public class UserController {
     @GetMapping
     public List<User> getAll() { return service.getAll(); }
 
-    @PostMapping
-    public User addUser(@RequestBody User user) { return service.save(user); }
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody User user) {
+        return ResponseEntity.ok(service.register(user));
+    }
+
 }
