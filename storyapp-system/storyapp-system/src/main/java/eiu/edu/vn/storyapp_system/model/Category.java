@@ -1,5 +1,6 @@
 package eiu.edu.vn.storyapp_system.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.List;
@@ -49,6 +50,6 @@ public class Category {
     }
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonBackReference
     private List<Story> stories;
 }

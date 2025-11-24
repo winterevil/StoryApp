@@ -17,7 +17,9 @@ export default function ProfileScreen({ navigation }) {
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const loadUserData = async () => {
     const id = await AsyncStorage.getItem("userId");
@@ -39,16 +41,27 @@ export default function ProfileScreen({ navigation }) {
 
   const avatarChar = fullName.charAt(0).toUpperCase();
 
-  // HANDLE UPDATE
   const handleUpdate = async () => {
     let body = {
       full_name: fullName,
       email,
-      username: email, 
+      username: email,  
     };
 
-    if (newPassword.trim() !== "") {
-      body.password = newPassword;
+    if (oldPassword || newPassword || confirmPassword) {
+
+      if (!oldPassword || !newPassword || !confirmPassword) {
+        Alert.alert("Error", "Please fill all password fields.");
+        return;
+      }
+
+      if (newPassword !== confirmPassword) {
+        Alert.alert("Error", "New passwords do not match.");
+        return;
+      }
+
+      body.old_password = oldPassword;
+      body.new_password = newPassword;
     }
 
     const res = await updateUser(userId, body);
@@ -66,9 +79,9 @@ export default function ProfileScreen({ navigation }) {
     }
 
     Alert.alert("Success", "Profile updated successfully.");
-
-    loadUserData();
+    loadUserData(); 
   };
+
 
   return (
     <LinearGradient
@@ -76,7 +89,7 @@ export default function ProfileScreen({ navigation }) {
       style={{ flex: 1, paddingTop: 80, alignItems: "center" }}
     >
       <View style={styles.card}>
-        
+
         {/* Avatar */}
         <View style={styles.avatar}>
           <Text style={styles.avatarText}>{avatarChar}</Text>
@@ -98,13 +111,28 @@ export default function ProfileScreen({ navigation }) {
           onChangeText={setEmail}
         />
 
-        {/* Password */}
-        <Text style={styles.label}>New Password (optional)</Text>
+        <Text style={styles.label}>Old Password</Text>
         <TextInput
           style={styles.input}
           secureTextEntry
-          placeholder="Enter new password"
+          value={oldPassword}
+          onChangeText={setOldPassword}
+        />
+
+        <Text style={styles.label}>New Password</Text>
+        <TextInput
+          style={styles.input}
+          secureTextEntry
+          value={newPassword}
           onChangeText={setNewPassword}
+        />
+
+        <Text style={styles.label}>Confirm Password</Text>
+        <TextInput
+          style={styles.input}
+          secureTextEntry
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
         />
 
         <TouchableOpacity onPress={handleUpdate} style={styles.updateBtn}>

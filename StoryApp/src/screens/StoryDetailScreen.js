@@ -88,6 +88,7 @@ export default function StoryDetailScreen({ route, navigation }) {
         {/* Title */}
         <Text style={styles.title}>{story.title}</Text>
         <Text style={styles.author}>by {story.author}</Text>
+        <Text style={styles.category}>Category: {story?.category?.name}</Text>
 
         {/* Description */}
         <Text style={styles.desc}>{story.description}</Text>
@@ -170,10 +171,15 @@ const styles = StyleSheet.create({
   author: {
     fontSize: 15,
     color: "#18453099",
+    marginBottom: 6,
+    textAlign: "center",
+  },
+  category: {
+    fontSize: 15,
+    color: "#18453099",
     marginBottom: 18,
     textAlign: "center",
   },
-
   desc: {
     fontSize: 15,
     color: "#184530dd",

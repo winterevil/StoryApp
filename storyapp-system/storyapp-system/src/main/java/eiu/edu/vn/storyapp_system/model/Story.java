@@ -1,5 +1,6 @@
 package eiu.edu.vn.storyapp_system.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.List;
@@ -22,7 +23,7 @@ public class Story {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @JsonBackReference
+    @JsonManagedReference
     private Category category;
 
     public List<Chapter> getChapters() {

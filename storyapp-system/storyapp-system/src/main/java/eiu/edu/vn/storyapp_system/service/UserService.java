@@ -86,28 +86,42 @@ public class UserService {
                 .orElse(null);
     }
 
-    public Object updateUser(Long id, User updated) {
-        Optional<User> optional = repo.findById(id);
+    public Map<String, Object> updateUser(Long id, Map<String, Object> body) {
 
+        Optional<User> optional = repo.findById(id);
         if (optional.isEmpty()) {
             return Map.of("error", "User not found");
         }
 
         User user = optional.get();
 
-        user.setFull_name(updated.getFull_name());
-        user.setEmail(updated.getEmail());
-        user.setUsername(updated.getUsername());
+        user.setFull_name((String) body.get("full_name"));
+        user.setEmail((String) body.get("email"));
+        user.setUsername((String) body.get("email"));
 
-        if (updated.getPassword() != null && !updated.getPassword().isBlank()) {
-            user.setPassword(encoder.encode(updated.getPassword()));
+        if (body.containsKey("old_password")) {
+
+            String oldPassword = (String) body.get("old_password");
+            String newPassword = (String) body.get("new_password");
+
+            if (!encoder.matches(oldPassword, user.getPassword())) {
+                return Map.of("error", "Old password is incorrect");
+            }
+
+            user.setPassword(encoder.encode(newPassword));
+            repo.save(user);
+
+            return Map.of(
+                    "message", "Password updated",
+                    "logout", true
+            );
         }
 
         repo.save(user);
 
         return Map.of(
-                "message", "User updated successfully",
-                "logout", updated.getPassword() != null && !updated.getPassword().isBlank()
+                "message", "Profile updated successfully",
+                "logout", false
         );
     }
 
