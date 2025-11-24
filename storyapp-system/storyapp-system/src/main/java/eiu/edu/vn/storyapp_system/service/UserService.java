@@ -73,10 +73,42 @@ public class UserService {
                 .compact();
 
         return Map.of(
+                "id", user.getId(),
                 "token", token,
                 "email", user.getEmail(),
                 "username", user.getUsername(),
                 "full_name", user.getFull_name()
         );
     }
+
+    public User getById(Long id) {
+        return repo.findById(id)
+                .orElse(null);
+    }
+
+    public Object updateUser(Long id, User updated) {
+        Optional<User> optional = repo.findById(id);
+
+        if (optional.isEmpty()) {
+            return Map.of("error", "User not found");
+        }
+
+        User user = optional.get();
+
+        user.setFull_name(updated.getFull_name());
+        user.setEmail(updated.getEmail());
+        user.setUsername(updated.getUsername());
+
+        if (updated.getPassword() != null && !updated.getPassword().isBlank()) {
+            user.setPassword(encoder.encode(updated.getPassword()));
+        }
+
+        repo.save(user);
+
+        return Map.of(
+                "message", "User updated successfully",
+                "logout", updated.getPassword() != null && !updated.getPassword().isBlank()
+        );
+    }
+
 }
