@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     backgroundColor: "#fff",
     color: "#184530",
+    fontFamily: undefined,
   },
 
   loginBtn: {
