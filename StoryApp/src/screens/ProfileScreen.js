@@ -45,7 +45,7 @@ export default function ProfileScreen({ navigation }) {
     let body = {
       full_name: fullName,
       email,
-      username: email,  
+      username: email,
     };
 
     if (oldPassword || newPassword || confirmPassword) {
@@ -79,9 +79,13 @@ export default function ProfileScreen({ navigation }) {
     }
 
     Alert.alert("Success", "Profile updated successfully.");
-    loadUserData(); 
+    loadUserData();
   };
 
+  const handleLogout = async () => {
+    await AsyncStorage.clear();
+    navigation.replace("Login");
+  };
 
   return (
     <LinearGradient
@@ -135,9 +139,16 @@ export default function ProfileScreen({ navigation }) {
           onChangeText={setConfirmPassword}
         />
 
-        <TouchableOpacity onPress={handleUpdate} style={styles.updateBtn}>
-          <Text style={styles.updateText}>Update</Text>
-        </TouchableOpacity>
+        <View style={styles.rowButtons}>
+          <TouchableOpacity onPress={handleUpdate} style={styles.updateBtn}>
+            <Text style={styles.updateText}>Update</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={handleLogout} style={styles.logoutBtn}>
+            <Text style={styles.logoutText}>Logout</Text>
+          </TouchableOpacity>
+        </View>
+
       </View>
     </LinearGradient>
   );
@@ -186,17 +197,43 @@ const styles = StyleSheet.create({
     borderColor: "#ddd",
   },
 
+  rowButtons: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
+    marginTop: 20,
+  },
+
   updateBtn: {
     backgroundColor: "#184530",
-    paddingVertical: 14,
-    paddingHorizontal: 30,
-    borderRadius: 14,
-    marginTop: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 12,
+    flex: 1,
+    marginRight: 8,
+  },
+
+  logoutBtn: {
+    backgroundColor: "#b30000",
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 12,
+    flex: 1,
+    marginLeft: 8,
   },
 
   updateText: {
     color: "#fff",
     fontSize: 16,
     fontWeight: "600",
+    textAlign: "center",
   },
+
+  logoutText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
+    textAlign: "center",
+  },
+
 });

@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03320a1f-3977-442e-b905-390442dec70b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../StoryApp/src/screens/ProfileScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/../StoryApp/src/screens/ProfileScreen.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/model/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/model/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/model/Story.java" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/model/Story.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/service/StoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/service/StoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,6 +97,8 @@
       <workItem from="1763886747604" duration="1197000" />
       <workItem from="1763952599917" duration="1494000" />
       <workItem from="1763971658070" duration="1173000" />
+      <workItem from="1763973004913" duration="146000" />
+      <workItem from="1764035782111" duration="851000" />
     </task>
     <servers />
   </component>
