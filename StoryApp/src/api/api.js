@@ -94,3 +94,64 @@ export const updateUser = async (id, data) => {
     return { error: "Network error" };
   }
 };
+
+// Lấy danh sách favorite theo userId
+export const fetchFavorites = async (userId) => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/favorites/${userId}`);
+    return await res.json();
+  } catch (error) {
+    console.error("Lỗi fetch favorites:", error);
+    return [];
+  }
+};
+
+export const addFavorite = async (userId, storyId) => {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/favorites/add?userId=${userId}&storyId=${storyId}`,
+      { method: "POST" }
+    );
+
+    const text = await res.text();
+
+    try {
+      return JSON.parse(text);
+    } catch (err) {
+      return { message: text };
+    }
+
+  } catch (error) {
+    console.error("Lỗi add favorite:", error);
+    return { error: "Network error" };
+  }
+};
+
+export const removeFavorite = async (userId, storyId) => {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/favorites/remove?userId=${userId}&storyId=${storyId}`,
+      { method: "DELETE" }
+    );
+
+    const text = await res.text();
+
+    try {
+      return JSON.parse(text);
+    } catch {
+      return { message: text };
+    }
+  } catch (error) {
+    return { error: "Network error" };
+  }
+};
+
+export const fetchStoriesByCategory = async (categoryId) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/stories/category/${categoryId}`);
+    return await response.json();
+  } catch (error) {
+    console.error("Lỗi khi fetch stories by category:", error);
+    return [];
+  }
+};
