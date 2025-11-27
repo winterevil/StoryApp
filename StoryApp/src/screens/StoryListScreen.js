@@ -8,43 +8,63 @@ import {
   ActivityIndicator,
   Image,
 } from "react-native";
-import axios from "axios";
 import LinearGradient from "react-native-linear-gradient";
+import { fetchStories, fetchStoriesByCategory, addFavorite, removeFavorite, fetchFavorites } from "../api/api";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function StoryListScreen({ route, navigation }) {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const categoryId = route?.params?.categoryId || null;
-  const categoryName = route?.params?.categoryName || "Story List";
+  const categoryName = route?.params?.categoryName || null;
+  const [userId, setUserId] = useState(null);
+  const [favoriteIds, setFavoriteIds] = useState([]);
 
   useEffect(() => {
-    const fetchStories = async () => {
+    const loadUserAndFavorites = async () => {
+      const uid = await AsyncStorage.getItem("userId");
+      setUserId(uid);
+
+      if (uid) {
+        const favList = await fetchFavorites(uid);
+        const ids = favList.map(s => s.id);
+        setFavoriteIds(ids);
+      }
+    };
+
+    loadUserAndFavorites();
+  }, []);
+
+  useEffect(() => {
+    const loadStories = async () => {
+      setLoading(true);
       try {
-        let url = "http://10.0.2.2:8080/api/stories";
+        let data = [];
+
         if (categoryId) {
-          url = `http://10.0.2.2:8080/api/stories/category/${categoryId}`;
+          data = await fetchStoriesByCategory(categoryId);
+        } else {
+          data = await fetchStories();
         }
 
-        const res = await axios.get(url);
-        setStories(res.data || []);
+        setStories(data || []);
       } catch (error) {
-        console.error("Error loading stories:", error.message);
+        console.error("Error loading stories:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchStories();
+    loadStories();
   }, [categoryId]);
 
-  // LOADING UI
+  // LOADING
   if (loading) {
     return (
       <LinearGradient
         colors={["#A1FFCE", "#FAFFD1", "#8FD9C4"]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 1 }}
         style={styles.center}
       >
         <ActivityIndicator size="large" color="#184530" />
@@ -53,60 +73,86 @@ export default function StoryListScreen({ route, navigation }) {
     );
   }
 
-  // EMPTY UI
+  // EMPTY
   if (!stories || stories.length === 0) {
     return (
       <LinearGradient
         colors={["#A1FFCE", "#FAFFD1", "#8FD9C4"]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 1 }}
         style={styles.center}
       >
-        <Text style={styles.emptyText}>No stories found in this category.</Text>
+        <Text style={styles.emptyText}>No stories found.</Text>
       </LinearGradient>
     );
   }
 
-  // EACH STORY
+  // EACH STORY ITEM
   const renderStory = ({ item }) => (
-    <TouchableOpacity
-      style={styles.card}
-      onPress={() => navigation.navigate("StoryDetail", { storyId: item.id })}
-      activeOpacity={0.7}
-    >
-      <Image
-        source={{
-          uri:
-            item.cover_image && item.cover_image.trim() !== ""
-              ? item.cover_image
-              : "https://t3.ftcdn.net/jpg/05/79/68/24/360_F_579682479_j4jRfx0nl3C8vMrTYVapFnGP8EgNHgfk.jpg",
-        }}
-        style={styles.cover}
-      />
+    <View style={styles.cardWrapper}>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => navigation.navigate("StoryDetail", { storyId: item.id })}
+        activeOpacity={0.7}
+      >
+        <Image
+          source={{
+            uri:
+              item.cover_image && item.cover_image.trim() !== ""
+                ? item.cover_image
+                : "https://t3.ftcdn.net/jpg/05/79/68/24/360_F_579682479_j4jRfx0nl3C8vMrTYVapFnGP8EgNHgfk.jpg",
+          }}
+          style={styles.cover}
+        />
 
-      <View style={styles.info}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.author}>by {item.author}</Text>
-        <Text style={styles.desc} numberOfLines={2}>
-          {item.description || "No description available."}
-        </Text>
-      </View>
-    </TouchableOpacity>
+        <View style={styles.info}>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.author}>by {item.author}</Text>
+          <Text style={styles.desc} numberOfLines={2}>
+            {item.description || "No description available."}
+          </Text>
+        </View>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => toggleFavorite(item.id)}
+        style={styles.favoriteBtn}
+      >
+        <Icon
+          name={favoriteIds.includes(item.id) ? "heart" : "heart-outline"}
+          size={26}
+          color={favoriteIds.includes(item.id) ? "#ff4d4d" : "#d14d4d"}
+        />
+      </TouchableOpacity>
+    </View>
   );
+
+  const toggleFavorite = async (storyId) => {
+    if (!userId) return alert("Please login again!");
+
+    const isFav = favoriteIds.includes(storyId);
+
+    if (isFav) {
+      // REMOVE
+      const res = await removeFavorite(userId, storyId);
+      setFavoriteIds(favoriteIds.filter(id => id !== storyId));
+    } else {
+      // ADD
+      const res = await addFavorite(userId, storyId);
+      setFavoriteIds([...favoriteIds, storyId]);
+    }
+  };
 
   return (
     <LinearGradient
       colors={["#A1FFCE", "#FAFFD1", "#8FD9C4"]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 0, y: 1 }}
       style={{ flex: 1 }}
     >
       <View style={styles.innerContainer}>
+        {categoryName && (
+          <Text style={styles.categoryHeader}>{categoryName}</Text>
+        )}
         <FlatList
           data={stories}
-          keyExtractor={(item, index) =>
-            item?.id ? item.id.toString() : index.toString()
-          }
+          keyExtractor={(item) => item.id.toString()}
           renderItem={renderStory}
           showsVerticalScrollIndicator={false}
         />
@@ -120,15 +166,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     paddingTop: 30,
-  },
-
-  header: {
-    fontSize: 28,
-    fontWeight: "800",
-    textAlign: "center",
-    marginBottom: 22,
-    color: "#184530",
-    letterSpacing: 0.3,
   },
 
   center: {
@@ -148,7 +185,6 @@ const styles = StyleSheet.create({
     color: "#184530",
   },
 
-  // ✨ MINIMAL LUXURY CARD
   card: {
     flexDirection: "row",
     backgroundColor: "#ffffffcc",
@@ -156,7 +192,7 @@ const styles = StyleSheet.create({
     padding: 14,
     marginBottom: 18,
     borderWidth: 1,
-    borderColor: "#ffffff55", // border nhẹ kiểu luxury
+    borderColor: "#ffffff55",
   },
 
   cover: {
@@ -189,4 +225,28 @@ const styles = StyleSheet.create({
     color: "#184530aa",
     lineHeight: 18,
   },
+  cardWrapper: {
+    position: "relative",
+  },
+
+  favoriteBtn: {
+    position: "absolute",
+    top: 12,
+    right: 15,
+    backgroundColor: "#ffffffdd",
+    padding: 6,
+    borderRadius: 30,
+    elevation: 4,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    shadowOffset: { width: 0, height: 2 },
+  },
+  categoryHeader: {
+    fontSize: 26,
+    fontWeight: "800",
+    color: "#184530",
+    textAlign: "center",
+    marginBottom: 20,
+  }
 });

@@ -2,6 +2,8 @@ package eiu.edu.vn.storyapp_system.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "users")
@@ -14,6 +16,9 @@ public class User {
     private String username;
     private String password;
     private String email;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Favorite> favorites;
 
     public Long getId() {
         return id;
@@ -56,4 +61,17 @@ public class User {
     }
 
     private String full_name;
+
+    public List<Favorite> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(List<Favorite> favorites) {
+        this.favorites = favorites;
+    }
+    @Override
+    public String toString() {
+        return "User{id=" + id + "}";
+    }
+
 }

@@ -1,34 +1,87 @@
-export const API_BASE_URL = "http://10.0.2.2:8080/api";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const API_BASE_URL = "http://10.0.2.2:8080/api";
+
+const getToken = async () => {
+  const token = await AsyncStorage.getItem("token");
+  return token;
+};
 
 // Lấy danh sách truyện
 export const fetchStories = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/stories`);
-    return await response.json();
-  } catch (error) {
-    console.error("Lỗi khi fetch stories:", error);
+    const token = await getToken();
+
+    const res = await fetch(`${API_BASE_URL}/stories`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    return await res.json();
+  } catch (err) {
+    console.error("Lỗi fetch stories:", err);
     return [];
   }
 };
 
-// Lấy danh sách categories
+export const fetchStoriesByCategory = async (categoryId) => {
+  try {
+    const token = await getToken();
+
+    const res = await fetch(`${API_BASE_URL}/stories/category/${categoryId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    return await res.json();
+  } catch (err) {
+    console.error("Lỗi fetch stories by category:", err);
+    return [];
+  }
+};
+
+export const fetchStoryById = async (storyId) => {
+  try {
+    const token = await getToken();
+
+    const res = await fetch(`${API_BASE_URL}/stories/${storyId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    const text = await res.text();
+    return text ? JSON.parse(text) : null;
+
+  } catch (error) {
+    console.error("Lỗi fetchStoryById:", error);
+    return null;
+  }
+};
+
+
 export const fetchCategories = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/categories`);
-    return await response.json();
-  } catch (error) {
-    console.error("Lỗi khi fetch categories:", error);
+    const token = await getToken();
+
+    const res = await fetch(`${API_BASE_URL}/categories`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    return await res.json();
+  } catch (err) {
+    console.error("Lỗi fetch categories:", err);
     return [];
   }
 };
 
-// Lấy danh sách chapter theo storyId
 export const fetchChapters = async (storyId) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/chapters/story/${storyId}`);
-    return await response.json();
-  } catch (error) {
-    console.error("Lỗi khi fetch chapters:", error);
+    const token = await getToken();
+
+    const res = await fetch(`${API_BASE_URL}/chapters/story/${storyId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    return await res.json();
+  } catch (err) {
+    console.error("Lỗi fetch chapters:", err);
     return [];
   }
 };
@@ -36,61 +89,129 @@ export const fetchChapters = async (storyId) => {
 // LOGIN
 export const loginUser = async (email, password) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+    const res = await fetch(`${API_BASE_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
 
-    if (!response.ok) {
-      const err = await response.json();
-      return { error: err.error || "Login failed" };
+    if (!res.ok) {
+      return { error: (await res.json()).error || "Login failed" };
     }
 
-    return await response.json();
-
-  } catch (error) {
-    return { error: "Network error" };
+    return await res.json();
+  } catch (err) {
+    return { error: err.message };
   }
 };
 
+// REGISTER
 export const registerUser = async (full_name, email, password) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/auth/register`, {
+    const res = await fetch(`${API_BASE_URL}/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        full_name,
-        email,
-        password,
-      }),
+      body: JSON.stringify({ full_name, email, password }),
     });
 
-    return await response.json();
-  } catch (error) {
-    console.error("Lỗi register:", error);
+    return await res.json();
+  } catch (err) {
+    console.error("Lỗi register:", err);
     return { error: "Network error" };
   }
 };
 
 export const fetchUserById = async (id) => {
   try {
-    const res = await fetch(`${API_BASE_URL}/users/${id}`);
+    const token = await getToken();
+
+    const res = await fetch(`${API_BASE_URL}/users/${id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
     return await res.json();
-  } catch (e) {
+  } catch (err) {
     return { error: "Network error" };
   }
 };
 
 export const updateUser = async (id, data) => {
   try {
+    const token = await getToken();
+
     const res = await fetch(`${API_BASE_URL}/users/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify(data),
     });
+
     return await res.json();
-  } catch (e) {
+  } catch (err) {
+    return { error: "Network error" };
+  }
+};
+
+// Lấy danh sách favorite
+export const fetchFavorites = async (userId) => {
+  try {
+    const token = await getToken();
+
+    const res = await fetch(`${API_BASE_URL}/favorites/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    const text = await res.text();
+
+    return text ? JSON.parse(text) : [];
+  } catch (err) {
+    console.error("Lỗi fetch favorites:", err);
+    return [];
+  }
+};
+
+// Add favorite
+export const addFavorite = async (userId, storyId) => {
+  try {
+    const token = await getToken();
+
+    const res = await fetch(
+      `${API_BASE_URL}/favorites/add?userId=${userId}&storyId=${storyId}`,
+      {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    );
+
+    const text = await res.text();
+
+    return text ? JSON.parse(text) : { message: "Added" };
+  } catch (err) {
+    console.error("Lỗi add favorite:", err);
+    return { error: "Network error" };
+  }
+};
+
+// Remove favorite
+export const removeFavorite = async (userId, storyId) => {
+  try {
+    const token = await getToken();
+
+    const res = await fetch(
+      `${API_BASE_URL}/favorites/remove?userId=${userId}&storyId=${storyId}`,
+      {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    );
+
+    const text = await res.text();
+
+    return text ? JSON.parse(text) : { message: "Removed" };
+  } catch (err) {
+    console.error("Lỗi remove favorite:", err);
     return { error: "Network error" };
   }
 };
