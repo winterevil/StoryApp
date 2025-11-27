@@ -1,5 +1,6 @@
 package eiu.edu.vn.storyapp_system.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.List;
@@ -22,8 +23,11 @@ public class Story {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @JsonBackReference
+    @JsonManagedReference
     private Category category;
+
+    @OneToMany(mappedBy = "story", cascade = CascadeType.ALL)
+    private List<Favorite> favorites;
 
     public List<Chapter> getChapters() {
         return chapters;
@@ -83,4 +87,12 @@ public class Story {
 
     @OneToMany(mappedBy = "story", cascade = CascadeType.ALL)
     private List<Chapter> chapters;
+
+    public List<Favorite> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(List<Favorite> favorites) {
+        this.favorites = favorites;
+    }
 }

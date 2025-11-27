@@ -14,29 +14,26 @@ export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
- const handleLogin = async () => {
-  if (!email || !password) {
-    alert("Please enter all required fields");
-    return;
-  }
+  const handleLogin = async () => {
+    const res = await loginUser(email, password);
 
-  const res = await loginUser(email, password);
+    if (res.error) {
+      alert(res.error);
+      return;
+    }
 
-  if (res.error) {
-    alert(res.error);
-    return;
-  }
+    // Lưu thông tin user
+    await AsyncStorage.setItem("userId", res.id.toString());
+    await AsyncStorage.setItem("email", res.email);
+    await AsyncStorage.setItem("full_name", res.full_name);
+    await AsyncStorage.setItem("username", res.username);
+    await AsyncStorage.setItem("token", res.token);
 
-  // Lưu token vào AsyncStorage
-  await AsyncStorage.setItem("token", res.token);
-  await AsyncStorage.setItem("username", res.username);
-
-  navigation.replace("Home");
-};
+    navigation.replace("Home");
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: "#FFF" }}>
-      {/* TOP GRADIENT HEADER */}
       <LinearGradient
         colors={["#A1FFCE", "#FAFFD1", "#8FD9C4"]}
         start={{ x: 0, y: 0 }}
@@ -92,7 +89,7 @@ export default function LoginScreen({ navigation }) {
         {/* LOGIN BUTTON */}
         <TouchableOpacity onPress={handleLogin} style={{ marginTop: 20 }}>
           <LinearGradient
-        colors={['#8FD9C4', '#A1FFCE']}
+            colors={['#8FD9C4', '#A1FFCE']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={styles.loginBtn}
