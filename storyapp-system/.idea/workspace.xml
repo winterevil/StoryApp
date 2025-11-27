@@ -5,14 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03320a1f-3977-442e-b905-390442dec70b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/security/JwtFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storyapp-system/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storyapp-system/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="long" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -24,7 +43,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/winterevil/StoryApp.git&quot;,
-    &quot;accountId&quot;: &quot;53ae742b-babb-4f27-bd4c-43553458d77c&quot;
+    &quot;accountId&quot;: &quot;b2452764-91dd-4beb-bee4-8704add861cb&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -44,7 +63,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;Spring Boot.StoryappSystemApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;long&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;diep&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;E:/CSE441/StoryApp/storyapp-system&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -74,8 +93,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26927.53" />
-        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.26927.53" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.26775.15" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.26775.15" />
       </set>
     </attachedChunks>
   </component>
@@ -99,6 +118,7 @@
       <workItem from="1763971658070" duration="1173000" />
       <workItem from="1763973004913" duration="146000" />
       <workItem from="1764035782111" duration="851000" />
+      <workItem from="1764221113277" duration="3650000" />
     </task>
     <servers />
   </component>
