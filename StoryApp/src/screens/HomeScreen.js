@@ -33,6 +33,11 @@ export default function HomeScreen({ navigation }) {
             onPress={() => navigation.navigate("Category")}
           />
           <MenuButton
+            label="Favorite"
+            icon="heart"
+            onPress={() => navigation.navigate("Favorite")}
+          />
+          <MenuButton
             label="Profile"
             icon="account-circle"
             onPress={() => navigation.navigate("Profile")}

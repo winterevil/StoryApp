@@ -12,6 +12,7 @@ import ProfileScreen from "../screens/ProfileScreen";
 import ChapterDetailScreen from "../screens/ChapterDetailScreen";
 import LoginScreen from "../screens/LoginScreen";
 import SignUpScreen from "../screens/SignUpScreen";
+import FavoriteScreen from "../screens/FavoriteScreen";
 
 const Stack = createStackNavigator();
 
@@ -30,6 +31,7 @@ export default function StackNavigator() {
         <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: "Profile" }} />
         <Stack.Screen name="About" component={AboutScreen} options={{ title: "About Us" }} />
         <Stack.Screen name="ChapterDetail" component={ChapterDetailScreen} options={{ title: "Chapter Detail" }} />
+        <Stack.Screen name="Favorite" component={FavoriteScreen} options={{ title: "Favorite" }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
