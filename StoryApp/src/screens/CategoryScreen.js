@@ -9,62 +9,64 @@ import {
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import axios from "axios";
+import { fetchCategories } from "../api/api";
 
 export default function CategoryScreen({ navigation }) {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const res = await axios.get("http://10.0.2.2:8080/api/categories");
-        const fetched = res.data || [];
-
-        const icons = [
-          "book-open-page-variant",   // truyện nói chung
-          "book-heart-outline",       // ngôn tình / lãng mạn
-          "sword-cross",              // hành động / chiến đấu
-          "ghost",                    // kinh dị / ma
-          "drama-masks",              // tâm lý / kịch tính
-          "star-face",                // huyền ảo / fantasy
-          "wizard-hat",               // phép thuật / wizard
-          "alien-outline",            // khoa học viễn tưởng
-          "robot-outline",            // công nghệ / sci-fi
-          "detective",                // trinh thám / điều tra
-          "emoticon-happy-outline",   // hài hước
-          "earth",                    // phiêu lưu / khám phá
-          "map-search-outline",       // thám hiểm
-          "sword",                    // kiếm hiệp
-          "yin-yang",                 // võ thuật / tu tiên
-          "shield-halved-outline",    // anh hùng / bảo vệ
-          "virus-outline",            // zombie / apocalypse
-          "clock-time-nine-outline",  // xuyên không
-          "crown-outline",            // cung đấu / hoàng gia
-          "school-outline",           // học đường
-        ];
-
-        const shuffled = [...icons];
-        for (let i = shuffled.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-        }
-
-        const updated = fetched.map((cat, index) => ({
-          ...cat,
-          randomIcon: shuffled[index % shuffled.length],
-        }));
-
-        setCategories(updated);
-      } catch (error) {
-        console.error("Lỗi tải thể loại:", error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCategories();
+    loadCategories();
   }, []);
 
+  const loadCategories = async () => {
+    setLoading(true);
+    try {
+      const fetched = await fetchCategories();
+      const icons = [
+        "book-open-page-variant",
+        "book-heart-outline",
+        "sword-cross",
+        "ghost",
+        "drama-masks",
+        "star-face",
+        "wizard-hat",
+        "alien-outline",
+        "robot-outline",
+        "detective",
+        "emoticon-happy-outline",
+        "earth",
+        "map-search-outline",
+        "sword",
+        "yin-yang",
+        "shield-halved-outline",
+        "virus-outline",
+        "clock-time-nine-outline",
+        "crown-outline",
+        "school-outline",
+      ];
+
+      // Random icon cho mỗi category
+      const shuffled = [...icons];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+
+      const updated = fetched.map((cat, index) => ({
+        ...cat,
+        randomIcon: shuffled[index % shuffled.length],
+      }));
+
+      setCategories(updated);
+    } catch (error) {
+      console.error("Lỗi tải thể loại:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Loading UI
   if (loading) {
     return (
       <LinearGradient
@@ -72,11 +74,12 @@ export default function CategoryScreen({ navigation }) {
         style={styles.center}
       >
         <ActivityIndicator size="large" color="#184530" />
-        <Text style={{ marginTop: 10, color: "#184530" }}>Loading...</Text>
+        <Text style={{ marginTop: 8, color: "#184530" }}>Loading...</Text>
       </LinearGradient>
     );
   }
 
+  // Render từng category
   const renderCategory = ({ item }) => (
     <TouchableOpacity
       style={styles.card}
@@ -88,22 +91,17 @@ export default function CategoryScreen({ navigation }) {
         })
       }
     >
-      <LinearGradient
-        colors={["#ffffffee", "#f7fffdee"]}
-        style={styles.cardInner}
-      >
-        {/* ICON CIRCLE */}
-        <LinearGradient
-          colors={["#A1FFCE", "#8FD9C4"]}
-          style={styles.iconCircle}
-        >
+      <LinearGradient colors={["#ffffffee", "#f7fffdee"]} style={styles.cardInner}>
+        <LinearGradient colors={["#A1FFCE", "#8FD9C4"]} style={styles.iconCircle}>
           <Icon name={item.randomIcon} size={28} color="#fff" />
         </LinearGradient>
 
         <View style={{ flex: 1 }}>
           <Text style={styles.name}>{item.name}</Text>
           {item.description ? (
-            <Text style={styles.desc}>{item.description}</Text>
+            <Text style={styles.desc} numberOfLines={2}>
+              {item.description}
+            </Text>
           ) : null}
         </View>
       </LinearGradient>
@@ -111,10 +109,7 @@ export default function CategoryScreen({ navigation }) {
   );
 
   return (
-    <LinearGradient
-      colors={["#A1FFCE", "#FAFFD1", "#8FD9C4"]}
-      style={styles.container}
-    >
+    <LinearGradient colors={["#A1FFCE", "#FAFFD1", "#8FD9C4"]} style={styles.container}>
       <FlatList
         data={categories}
         keyExtractor={(item) => item.id.toString()}
@@ -142,7 +137,6 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     borderRadius: 22,
     backgroundColor: "transparent",
-
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.16,

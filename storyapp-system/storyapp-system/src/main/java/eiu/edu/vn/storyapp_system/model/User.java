@@ -69,4 +69,9 @@ public class User {
     public void setFavorites(List<Favorite> favorites) {
         this.favorites = favorites;
     }
+    @Override
+    public String toString() {
+        return "User{id=" + id + "}";
+    }
+
 }
