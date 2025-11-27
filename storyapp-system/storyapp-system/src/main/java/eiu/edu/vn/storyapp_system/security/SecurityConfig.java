@@ -21,7 +21,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable());
 
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**").permitAll() // register/login
+                .requestMatchers("/api/auth/**","/error").permitAll() // register/login
                 .anyRequest().authenticated()                // tất cả API khác cần token
         );
 

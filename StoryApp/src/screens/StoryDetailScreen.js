@@ -8,94 +8,113 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import axios from "axios";
 import LinearGradient from "react-native-linear-gradient";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
+import {
+  fetchStoryById,
+  fetchChapters,
+  addFavorite,
+  removeFavorite,
+  fetchFavorites
+} from "../api/api";
 
 export default function StoryDetailScreen({ route, navigation }) {
   const { storyId } = route.params;
+
   const [story, setStory] = useState(null);
   const [chapters, setChapters] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const storyRes = await axios.get(
-          `http://10.0.2.2:8080/api/stories/${storyId}`
-        );
-        const chapterRes = await axios.get(
-          `http://10.0.2.2:8080/api/chapters/story/${storyId}`
-        );
+  const [userId, setUserId] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(false);
 
-        setStory(storyRes.data);
-        setChapters(chapterRes.data || []);
-      } catch (error) {
-        console.error("Lỗi khi tải truyện:", error.message);
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const uid = await AsyncStorage.getItem("userId");
+        setUserId(uid);
+
+        // FETCH STORY BY ID
+        const storyJson = await fetchStoryById(storyId);
+        setStory(storyJson);
+
+        // FETCH CHAPTERS
+        const chapterJson = await fetchChapters(storyId);
+        setChapters(chapterJson || []);
+
+        // CHECK FAVORITE
+        if (uid) {
+          const favList = await fetchFavorites(uid);
+          const exists = favList.some((s) => s.id === storyId);
+          setIsFavorite(exists);
+        }
+
+      } catch (err) {
+        console.error("Error loading story details:", err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
+    loadData();
   }, [storyId]);
 
-  if (loading) {
+  const toggleFavorite = async () => {
+    if (!userId) return alert("Please login again!");
+
+    if (isFavorite) {
+      await removeFavorite(userId, storyId);
+      setIsFavorite(false);
+      alert("Removed from favorites");
+    } else {
+      await addFavorite(userId, storyId);
+      setIsFavorite(true);
+      alert("Added to favorites!");
+    }
+  };
+
+  if (loading || !story) {
     return (
-      <LinearGradient
-        colors={["#A1FFCE", "#FAFFD1", "#8FD9C4"]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.center}
-      >
+      <LinearGradient colors={["#A1FFCE", "#FAFFD1", "#8FD9C4"]} style={styles.center}>
         <ActivityIndicator size="large" color="#184530" />
         <Text style={styles.loadingText}>Loading...</Text>
       </LinearGradient>
     );
   }
 
-  if (!story) {
-    return (
-      <LinearGradient
-        colors={["#A1FFCE", "#FAFFD1", "#8FD9C4"]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.center}
-      >
-        <Text style={styles.emptyText}>No story available.</Text>
-      </LinearGradient>
-    );
-  }
-
   return (
-    <LinearGradient
-      colors={["#A1FFCE", "#FAFFD1", "#8FD9C4"]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={{ flex: 1 }}
-    >
+    <LinearGradient colors={["#A1FFCE", "#FAFFD1", "#8FD9C4"]} style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.container}>
-        {/* Cover */}
-        {story.cover_image && (
-          <View style={styles.coverWrapper}>
-            <Image
-              source={{ uri: story.cover_image }}
-              style={styles.cover}
-              resizeMode="cover"
-            />
-          </View>
-        )}
 
-        {/* Title */}
+        <View style={styles.coverWrapper}>
+          <Image
+            source={{
+              uri: story.cover_image || "https://placehold.co/300x400"
+            }}
+            style={styles.cover}
+          />
+        </View>
+
         <Text style={styles.title}>{story.title}</Text>
         <Text style={styles.author}>by {story.author}</Text>
-        <Text style={styles.category}>Category: {story?.category?.name}</Text>
+        <Text style={styles.category}>
+          Category: {story?.category?.name || "Unknown"}
+        </Text>
 
-        {/* Description */}
+        <TouchableOpacity style={styles.favoriteBtn} onPress={toggleFavorite}>
+          <Icon
+            name={isFavorite ? "heart" : "heart-outline"}
+            size={30}
+            color={isFavorite ? "#e63946" : "#184530"}
+          />
+        </TouchableOpacity>
+
+        <Text style={styles.sectionHeader}>Description</Text>
         <Text style={styles.desc}>{story.description}</Text>
 
-        {/* Chapters */}
-        <Text style={styles.header}>Chapters</Text>
-
+        <Text style={styles.sectionHeader}>Chapters</Text>
         {chapters.length > 0 ? (
           chapters.map((ch) => (
             <TouchableOpacity
@@ -108,12 +127,14 @@ export default function StoryDetailScreen({ route, navigation }) {
                 })
               }
             >
+              <Icon name="book-open-page-variant" size={22} color="#184530" />
               <Text style={styles.chapterTitle}>{ch.title}</Text>
             </TouchableOpacity>
           ))
         ) : (
           <Text style={styles.empty}>No chapters available.</Text>
         )}
+
       </ScrollView>
     </LinearGradient>
   );
@@ -122,90 +143,88 @@ export default function StoryDetailScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    paddingBottom: 40,
+    paddingBottom: 60,
   },
-
   center: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-
   loadingText: {
     marginTop: 10,
-    fontSize: 15,
     color: "#184530",
   },
-
   emptyText: {
     fontSize: 16,
     color: "#184530",
   },
 
   coverWrapper: {
-    width: "100%",
     alignItems: "center",
-    marginBottom: 26,
+    marginBottom: 20,
   },
-
   cover: {
-    width: 200,
-    height: 280,
-    borderRadius: 20,
-
-    shadowColor: "#000",
-    shadowOpacity: 0.15,
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 10,
+    width: 220,
+    height: 300,
+    borderRadius: 18,
     elevation: 6,
   },
 
   title: {
-    fontSize: 26,
+    fontSize: 27,
     fontWeight: "800",
     color: "#184530",
-    marginBottom: 6,
     textAlign: "center",
   },
-
   author: {
+    textAlign: "center",
     fontSize: 15,
     color: "#18453099",
-    marginBottom: 6,
-    textAlign: "center",
   },
   category: {
-    fontSize: 15,
-    color: "#18453099",
-    marginBottom: 18,
     textAlign: "center",
-  },
-  desc: {
-    fontSize: 15,
-    color: "#184530dd",
-    lineHeight: 22,
-    marginBottom: 30,
+    marginBottom: 18,
+    color: "#18453099",
   },
 
-  header: {
+  sectionHeader: {
+    marginTop: 25,
+    marginBottom: 10,
     fontSize: 20,
     fontWeight: "700",
     color: "#184530",
-    marginBottom: 14,
+  },
+
+  desc: {
+    fontSize: 16,
+    lineHeight: 22,
+    color: "#184530dd",
+  },
+
+  favoriteBtn: {
+    position: "absolute",
+    top: 40,
+    right: 25,
+    padding: 8,
+    backgroundColor: "#ffffffcc",
+    borderRadius: 40,
+    elevation: 4,
   },
 
   chapterCard: {
+    flexDirection: "row",
+    alignItems: "center",
     padding: 14,
-    borderRadius: 14,
+    marginBottom: 10,
     backgroundColor: "#ffffffcc",
-    borderWidth: 1,
+    borderRadius: 12,
     borderColor: "#ffffff55",
-    marginBottom: 14,
+    borderWidth: 1,
+    gap: 12,
   },
-
   chapterTitle: {
     fontSize: 16,
-    fontWeight: "700",
+    fontWeight: "600",
     color: "#184530",
   },
 });

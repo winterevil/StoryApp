@@ -10,7 +10,8 @@ import {
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { fetchFavorites } from "../api/api";
+import { fetchFavorites, removeFavorite } from "../api/api";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function FavoriteScreen({ navigation }) {
   const [favoriteStories, setFavoriteStories] = useState([]);
@@ -35,7 +36,17 @@ export default function FavoriteScreen({ navigation }) {
     };
 
     loadUserAndFavorites();
-  }, []);
+    const unsubscribe = navigation.addListener("focus", loadUserAndFavorites);
+
+    return unsubscribe;
+  }, [navigation]);
+
+  const handleRemove = async (storyId) => {
+    const updatedList = favoriteStories.filter((item) => item.id !== storyId);
+    setFavoriteStories(updatedList);
+
+    await removeFavorite(userId, storyId);
+  };
 
   if (loading) {
     return (
@@ -55,29 +66,38 @@ export default function FavoriteScreen({ navigation }) {
   }
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity
-      style={styles.card}
-      activeOpacity={0.8}
-      onPress={() => navigation.navigate("StoryDetail", { storyId: item.id })}
-    >
-      <Image
-        source={{
-          uri:
-            item.cover_image?.trim() !== ""
-              ? item.cover_image
-              : "https://t3.ftcdn.net/jpg/05/79/68/24/360_F_579682479_j4jRfx0nl3C8vMrTYVapFnGP8EgNHgfk.jpg",
-        }}
-        style={styles.cover}
-      />
+    <View style={styles.cardWrapper}>
+      <TouchableOpacity
+        style={styles.card}
+        activeOpacity={0.8}
+        onPress={() => navigation.navigate("StoryDetail", { storyId: item.id })}
+      >
+        <Image
+          source={{
+            uri:
+              item.cover_image?.trim() !== ""
+                ? item.cover_image
+                : "https://t3.ftcdn.net/jpg/05/79/68/24/360_F_579682479_j4jRfx0nl3C8vMrTYVapFnGP8EgNHgfk.jpg",
+          }}
+          style={styles.cover}
+        />
 
-      <View style={styles.info}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.author}>by {item.author}</Text>
-        <Text numberOfLines={2} style={styles.desc}>
-          {item.description || "No description available."}
-        </Text>
-      </View>
-    </TouchableOpacity>
+        <View style={styles.info}>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.author}>by {item.author}</Text>
+          <Text numberOfLines={2} style={styles.desc}>
+            {item.description || "No description available."}
+          </Text>
+        </View>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => handleRemove(item.id)}
+        style={styles.removeBtn}
+      >
+        <Icon name="heart" size={26} color="#ff4d4d" />
+      </TouchableOpacity>
+    </View>
   );
 
   return (
@@ -128,6 +148,10 @@ const styles = StyleSheet.create({
     color: "#184530",
   },
 
+  cardWrapper: {
+    position: "relative",
+  },
+
   card: {
     flexDirection: "row",
     backgroundColor: "#ffffffcc",
@@ -167,5 +191,15 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: "#184530aa",
     lineHeight: 18,
+  },
+
+  removeBtn: {
+    position: "absolute",
+    top: 13,
+    right: 15,
+    padding: 6,
+    backgroundColor: "#ffffffdd",
+    borderRadius: 30,
+    elevation: 4,
   },
 });

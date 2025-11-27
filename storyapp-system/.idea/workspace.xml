@@ -5,13 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03320a1f-3977-442e-b905-390442dec70b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/controller/FavoriteController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/model/Favorite.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/repository/FavoriteRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/service/FavoriteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../StoryApp/src/api/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/../StoryApp/src/api/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../StoryApp/src/navigation/StackNavigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../StoryApp/src/navigation/StackNavigator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../StoryApp/src/screens/StoryListScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/../StoryApp/src/screens/StoryListScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/model/Story.java" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/model/Story.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/controller/FavoriteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/controller/FavoriteController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/service/FavoriteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/src/main/java/eiu/edu/vn/storyapp_system/service/FavoriteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storyapp-system/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/Category.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/Chapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/Chapter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/Story.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/Story.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/storyapp-system/target/classes/eiu/edu/vn/storyapp_system/service/UserService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +127,8 @@
       <workItem from="1763971658070" duration="1173000" />
       <workItem from="1763973004913" duration="146000" />
       <workItem from="1764035782111" duration="851000" />
-      <workItem from="1764221114592" duration="4090000" />
+      <workItem from="1764221114592" duration="5427000" />
+      <workItem from="1764227807801" duration="3130000" />
     </task>
     <servers />
   </component>

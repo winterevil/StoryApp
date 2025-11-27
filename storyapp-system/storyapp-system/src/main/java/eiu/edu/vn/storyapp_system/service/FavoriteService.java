@@ -55,11 +55,12 @@ public class FavoriteService {
         Story story = storyRepo.findById(storyId).orElse(null);
 
         if (user == null || story == null) {
-            return "User or Story not found";
+            return Map.of("error", "User or Story not found");
         }
 
         favoriteRepo.deleteByUserAndStory(user, story);
-        return "Removed from favorite successfully";
+
+        return Map.of("message", "Removed from favorite successfully");
     }
 
     public List<Favorite> getFavorites(Long userId){

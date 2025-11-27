@@ -18,6 +18,7 @@ export default function StoryListScreen({ route, navigation }) {
   const [loading, setLoading] = useState(true);
 
   const categoryId = route?.params?.categoryId || null;
+  const categoryName = route?.params?.categoryName || null;
   const [userId, setUserId] = useState(null);
   const [favoriteIds, setFavoriteIds] = useState([]);
 
@@ -27,7 +28,7 @@ export default function StoryListScreen({ route, navigation }) {
       setUserId(uid);
 
       if (uid) {
-        const favList = await fetchFavorites(uid); // backend trả list Story
+        const favList = await fetchFavorites(uid);
         const ids = favList.map(s => s.id);
         setFavoriteIds(ids);
       }
@@ -146,6 +147,9 @@ export default function StoryListScreen({ route, navigation }) {
       style={{ flex: 1 }}
     >
       <View style={styles.innerContainer}>
+        {categoryName && (
+          <Text style={styles.categoryHeader}>{categoryName}</Text>
+        )}
         <FlatList
           data={stories}
           keyExtractor={(item) => item.id.toString()}
@@ -238,4 +242,11 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     shadowOffset: { width: 0, height: 2 },
   },
+  categoryHeader: {
+    fontSize: 26,
+    fontWeight: "800",
+    color: "#184530",
+    textAlign: "center",
+    marginBottom: 20,
+  }
 });
