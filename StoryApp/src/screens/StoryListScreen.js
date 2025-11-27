@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   Image,
+  TextInput
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { fetchStories, fetchStoriesByCategory, addFavorite, removeFavorite, fetchFavorites } from "../api/api";
@@ -14,6 +15,13 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function StoryListScreen({ route, navigation }) {
+  const removeVietnameseTones = (str) => {
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/đ/g, "d")
+      .replace(/Đ/g, "D");
+  };
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -21,6 +29,16 @@ export default function StoryListScreen({ route, navigation }) {
   const categoryName = route?.params?.categoryName || null;
   const [userId, setUserId] = useState(null);
   const [favoriteIds, setFavoriteIds] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const filteredStories = stories.filter(item => {
+    const search = removeVietnameseTones(searchText.toLowerCase());
+
+    const title = removeVietnameseTones(item.title.toLowerCase());
+    const author = removeVietnameseTones(item.author.toLowerCase());
+
+    return title.includes(search) || author.includes(search);
+  });
+
 
   useEffect(() => {
     const loadUserAndFavorites = async () => {
@@ -150,8 +168,15 @@ export default function StoryListScreen({ route, navigation }) {
         {categoryName && (
           <Text style={styles.categoryHeader}>{categoryName}</Text>
         )}
+        <TextInput
+          placeholder="Search by title or author..."
+          placeholderTextColor="#18453099"
+          style={styles.searchInput}
+          value={searchText}
+          onChangeText={setSearchText}
+        />
         <FlatList
-          data={stories}
+          data={filteredStories}
           keyExtractor={(item) => item.id.toString()}
           renderItem={renderStory}
           showsVerticalScrollIndicator={false}
@@ -248,5 +273,16 @@ const styles = StyleSheet.create({
     color: "#184530",
     textAlign: "center",
     marginBottom: 20,
-  }
+  },
+  searchInput: {
+    backgroundColor: "#ffffffdd",
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 12,
+    fontSize: 16,
+    marginBottom: 15,
+    borderWidth: 1,
+    borderColor: "#ffffff55",
+    color: "#184530",
+  },
 });
