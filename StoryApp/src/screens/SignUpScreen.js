@@ -8,29 +8,30 @@ import {
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { registerUser } from "../api/api";
-
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function SignUpScreen({ navigation }) {
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSignUp = async () => {
-  if (!fullname || !email || !password) {
-    alert("Please fill all fields");
-    return;
-  }
+    if (!fullname || !email || !password) {
+      alert("Please fill all fields");
+      return;
+    }
 
-  const res = await registerUser(fullname, email, password);
+    const res = await registerUser(fullname, email, password);
 
-  if (res.error) {
-    alert(res.error);
-    return;
-  }
+    if (res.error) {
+      alert(res.error);
+      return;
+    }
 
-  alert("Account created successfully!");
-  navigation.replace("Login");
-};
+    alert("Account created successfully!");
+    navigation.replace("Login");
+  };
 
 
   return (
@@ -59,6 +60,7 @@ export default function SignUpScreen({ navigation }) {
             value={fullname}
             onChangeText={setFullname}
           />
+
         </View>
 
         {/* Email */}
@@ -77,11 +79,18 @@ export default function SignUpScreen({ navigation }) {
           <TextInput
             placeholder="Password"
             placeholderTextColor="#999"
-            secureTextEntry
+            secureTextEntry = {!showPassword}
             style={styles.input}
             value={password}
             onChangeText={setPassword}
           />
+          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+            <Icon
+              name={showPassword ? "eye-off" : "eye"}
+              size={22}
+              color="#555"
+            />
+          </TouchableOpacity>
         </View>
 
         {/* SIGN UP BUTTON */}
@@ -143,18 +152,21 @@ const styles = StyleSheet.create({
   inputWrapper: {
     width: "100%",
     marginBottom: 16,
-  },
-
-  input: {
+    flexDirection: "row",
+    alignItems: "center",
     borderWidth: 1,
     borderColor: "#d5d5d5",
     borderRadius: 12,
-    paddingVertical: 14,
-    paddingHorizontal: 16,
-    fontSize: 15,
+    paddingHorizontal: 12,
     backgroundColor: "#fff",
+  },
+
+  input: {
+    flex: 1,
+    paddingVertical: 14,
+    paddingHorizontal: 4,
+    fontSize: 15,
     color: "#184530",
-    fontFamily: undefined,
   },
 
   loginBtn: {
