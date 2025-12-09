@@ -95,13 +95,20 @@ export const loginUser = async (email, password) => {
       body: JSON.stringify({ email, password }),
     });
 
+    const text = await res.text();  
+
     if (!res.ok) {
-      return { error: (await res.json()).error || "Login failed" };
+      return { error: text || "Invalid email or password" };
     }
 
-    return await res.json();
+    try {
+      return JSON.parse(text);
+    } catch (e) {
+      return { error: "Invalid server response" };
+    }
+
   } catch (err) {
-    return { error: err.message };
+    return { error: "Network error" };
   }
 };
 

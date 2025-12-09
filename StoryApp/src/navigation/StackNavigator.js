@@ -6,7 +6,6 @@ import SplashScreen from "../screens/SplashScreen";
 import HomeScreen from "../screens/HomeScreen";
 import StoryListScreen from "../screens/StoryListScreen";
 import StoryDetailScreen from "../screens/StoryDetailScreen";
-import SearchScreen from "../screens/SearchScreen";
 import CategoryScreen from "../screens/CategoryScreen";
 import AboutScreen from "../screens/AboutScreen";
 import ProfileScreen from "../screens/ProfileScreen";
@@ -27,7 +26,6 @@ export default function StackNavigator() {
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false, title: "Home Page" }} />
         <Stack.Screen name="StoryList" component={StoryListScreen} options={{ title: "Story List" }} />
         <Stack.Screen name="StoryDetail" component={StoryDetailScreen} options={{ title: "Story Detail" }} />
-        <Stack.Screen name="Search" component={SearchScreen} options={{ title: "Search" }} />
         <Stack.Screen name="Category" component={CategoryScreen} options={{ title: "Category" }} />
         <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: "Profile" }} />
         <Stack.Screen name="About" component={AboutScreen} options={{ title: "About Us" }} />
