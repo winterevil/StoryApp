@@ -113,6 +113,7 @@ export default function ProfileScreen({ navigation }) {
           style={styles.input}
           value={email}
           onChangeText={setEmail}
+          editable={false}
         />
 
         <Text style={styles.label}>Old Password</Text>
