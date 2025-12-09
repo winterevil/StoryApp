@@ -112,13 +112,16 @@ export default function StoryListScreen({ route, navigation }) {
         activeOpacity={0.7}
       >
         <Image
-          source={{
-            uri:
-              item.cover_image && item.cover_image.trim() !== ""
-                ? item.cover_image
-                : "https://t3.ftcdn.net/jpg/05/79/68/24/360_F_579682479_j4jRfx0nl3C8vMrTYVapFnGP8EgNHgfk.jpg",
-          }}
+          source={{ uri: item.cover_image }}
           style={styles.cover}
+          defaultSource={{
+            uri: "https://t3.ftcdn.net/jpg/05/79/68/24/360_F_579682479_j4jRfx0nl3C8vMrTYVapFnGP8EgNHgfk.jpg"
+          }}
+          onError={(e) => {
+            e.target.setNativeProps({
+              src: [{ uri: "https://t3.ftcdn.net/jpg/05/79/68/24/360_F_579682479_j4jRfx0nl3C8vMrTYVapFnGP8EgNHgfk.jpg" }]
+            });
+          }}
         />
 
         <View style={styles.info}>

@@ -10,6 +10,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LinearGradient from "react-native-linear-gradient";
 import { fetchUserById, updateUser } from "../api/api";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function ProfileScreen({ navigation }) {
   const [userId, setUserId] = useState(null);
@@ -20,6 +21,9 @@ export default function ProfileScreen({ navigation }) {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const loadUserData = async () => {
     const id = await AsyncStorage.getItem("userId");
@@ -117,28 +121,61 @@ export default function ProfileScreen({ navigation }) {
         />
 
         <Text style={styles.label}>Old Password</Text>
-        <TextInput
-          style={styles.input}
-          secureTextEntry
-          value={oldPassword}
-          onChangeText={setOldPassword}
-        />
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.passwordInput}
+            secureTextEntry={!showOldPassword}
+            value={oldPassword}
+            onChangeText={setOldPassword}
+          />
+          <TouchableOpacity
+            onPress={() => setShowOldPassword(!showOldPassword)}
+          >
+            <Icon
+              name={showOldPassword ? "eye-off" : "eye"}
+              size={22}
+              color="#555"
+            />
+          </TouchableOpacity>
+        </View>
 
         <Text style={styles.label}>New Password</Text>
-        <TextInput
-          style={styles.input}
-          secureTextEntry
-          value={newPassword}
-          onChangeText={setNewPassword}
-        />
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.passwordInput}
+            secureTextEntry={!showNewPassword}
+            value={newPassword}
+            onChangeText={setNewPassword}
+          />
+          <TouchableOpacity
+            onPress={() => setShowNewPassword(!showNewPassword)}
+          >
+            <Icon
+              name={showNewPassword ? "eye-off" : "eye"}
+              size={22}
+              color="#555"
+            />
+          </TouchableOpacity>
+        </View>
 
         <Text style={styles.label}>Confirm Password</Text>
-        <TextInput
-          style={styles.input}
-          secureTextEntry
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-        />
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.passwordInput}
+            secureTextEntry={!showConfirmPassword}
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+          />
+          <TouchableOpacity
+            onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+          >
+            <Icon
+              name={showConfirmPassword ? "eye-off" : "eye"}
+              size={22}
+              color="#555"
+            />
+          </TouchableOpacity>
+        </View>
 
         <View style={styles.rowButtons}>
           <TouchableOpacity onPress={handleUpdate} style={styles.updateBtn}>
@@ -235,6 +272,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     textAlign: "center",
+  },
+  passwordContainer: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    borderWidth: 1,
+    borderColor: "#ddd",
+  },
+  passwordInput: {
+    flex: 1,
+    paddingVertical: 12,
+    fontSize: 15,
   },
 
 });

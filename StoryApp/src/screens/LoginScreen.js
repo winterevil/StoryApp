@@ -9,10 +9,12 @@ import {
 import LinearGradient from "react-native-linear-gradient";
 import { loginUser } from "../api/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
     const res = await loginUser(email, password);
@@ -67,11 +69,20 @@ export default function LoginScreen({ navigation }) {
           <TextInput
             placeholder="Password"
             placeholderTextColor="#999"
-            secureTextEntry
+            secureTextEntry={!showPassword}
             style={styles.input}
             value={password}
             onChangeText={setPassword}
           />
+          <TouchableOpacity
+            onPress={() => setShowPassword(!showPassword)}
+          >
+            <Icon
+              name={showPassword ? "eye-off" : "eye"}
+              size={22}
+              color="#555"
+            />
+          </TouchableOpacity>
         </View>
 
         {/* Remember me & forgot password */}
@@ -146,16 +157,20 @@ const styles = StyleSheet.create({
   inputWrapper: {
     width: "100%",
     marginBottom: 16,
-  },
-
-  input: {
+    flexDirection: "row",
+    alignItems: "center",
     borderWidth: 1,
     borderColor: "#d5d5d5",
     borderRadius: 12,
-    paddingVertical: 14,
-    paddingHorizontal: 16,
-    fontSize: 15,
+    paddingHorizontal: 12,
     backgroundColor: "#fff",
+  },
+
+  input: {
+    flex: 1,
+    paddingVertical: 14,
+    paddingHorizontal: 4,
+    fontSize: 15,
     color: "#184530",
   },
 
